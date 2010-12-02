@@ -8,7 +8,7 @@ Tooltip: 'Export scene to XML3D'
 
 __author__ = "Kristian Sons"
 __url__ = ("blender", "blenderartists.org", "XML3D homepage, http://www.xml3d.org", "XML3D exporter, http://github.com/xml3d/XML3D-Exporters")
-__version__ = "0.4.0"
+__version__ = "DEV_VERSION"
 __bpydoc__ = """
 Description:
 
@@ -573,11 +573,12 @@ class xml3d_exporter:
         renderData = scene.getRenderingContext()
 
       
-        print('START: Exporting XML3D to %s' % self.filename)
+        print('--> START: Exporting XML3D to %s' % self.filename)
         start_time = Blender.sys.time()
         try:
             out = open(self.filename, 'w')
         except:
+            print('ERROR: Could not open %s' % self.filename)
             return False
       
       
@@ -618,7 +619,7 @@ class xml3d_exporter:
         self.doc.writexml(out, " ", " ", "\n", "UTF-8")
     
         out.close()
-        print('START: Exporting XML3D. Duration: %.2f' % (Blender.sys.time() - start_time))
+        print('--> END: Exporting XML3D. Duration: %.2f' % (Blender.sys.time() - start_time))
         return
 
 def export_gui(filename):

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ====================================================================== 
+     15.07.2010 14:51:00                                                        
+
+     project    XML3D Blender Exporter
+     description
+     Deploy script that prepares a single Blender Script to export XML3D files. 
+                   
+     Author: Kristian Sons                                                                
+     ====================================================================== -->
+<project name="script-merge" default="default">
+    <description>
+           Merge all the single scripts to one global xml3d_exporter.py
+    </description>
+
+	<property  file="build.properties" />
+	
+	
+    <!-- ================================= 
+          target: default              
+         ================================= -->
+    <target name="default" depends="clean">
+	   	<tstamp/>
+    	<mkdir dir="${buildDir}"/>
+    	<concat destfile="${buildDir}/${scriptName}">
+			<fileset file="${srcDir}/xml3d_exporter.py"/>
+    		<fileset file="${srcDir}/xml3d.py"/>
+		</concat>        
+    	<replaceregexp file="${buildDir}/${scriptName}"
+    	               match="from xml3d import XML3DDocument"
+    	               replace="" byline="true"/>
+    	<replaceregexp file="${buildDir}/${scriptName}"
+    	               match="DEV_VERSION"
+    	               replace="${version} (${DSTAMP})" byline="true"/>
+    	
+    </target>
+	
+	<target name="clean">
+		<delete dir="${buildDir}"></delete>
+	</target>
+
+
+</project>
