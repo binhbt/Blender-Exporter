@@ -509,7 +509,7 @@ class xml3d_exporter:
         link.setAttribute("rel", "stylesheet")
         link.setAttribute("type", "text/css")
         link.setAttribute("media", "all")
-        link.setAttribute("href", "http://graphics.cs.uni-sb.de/fileadmin/cguds/projects/xml3d/script/xml3d.css")
+        link.setAttribute("href", "http://www.xml3d.org/xml3d/script/xml3d.css")
         head.appendChild(link)
         
         body = doc.createElement("body")
@@ -525,7 +525,7 @@ class xml3d_exporter:
     
     
     def writeScripts(self, parent):
-        location = "http://graphics.cs.uni-sb.de/fileadmin/cguds/projects/xml3d/script/"
+        location = "http://www.xml3d.org/xml3d/script/"
         scripts = ["xml3d.js"]
       
         for script in scripts:
