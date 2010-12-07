@@ -455,7 +455,10 @@ class xml3d_exporter:
                     hasTexture = True
                     
                     valueElement = doc.createFloat3Element(None, "diffuseColor")
-                    valueElement.setValue("%f %f %f" % (material.rgbCol[0] * mtex.colfac, material.rgbCol[1] * mtex.colfac, material.rgbCol[2] * mtex.colfac))
+                    #fac = 1.0 - mtex.colfac
+                    #valueElement.setValue("%f %f %f" % (material.rgbCol[0] * fac, material.rgbCol[1] * fac, material.rgbCol[2] * fac))
+                    valueElement.setValue("1 1 1")
+                    shaderElement.appendChild(valueElement)
                     break;
             
         if not hasTexture:
@@ -478,7 +481,7 @@ class xml3d_exporter:
         shaderElement.appendChild(valueElement)
         
         valueElement = doc.createFloatElement(None, "shininess")
-        valueElement.setValue(str(material.hard/128.0))
+        valueElement.setValue(str(material.hard/511.0))
         shaderElement.appendChild(valueElement)
         
         transparent = 1.0 - material.alpha;
