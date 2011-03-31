@@ -9,34 +9,41 @@
      Author: Kristian Sons                                                                
      ====================================================================== -->
 <project name="script-merge" default="default">
-    <description>
+	<description>
            Merge all the single scripts to one global xml3d_exporter.py
     </description>
 
-	<property  file="build.properties" />
-	
-	
-    <!-- ================================= 
+	<property file="build.properties" />
+
+
+	<!-- ================================= 
           target: default              
          ================================= -->
-    <target name="default" depends="clean">
-	   	<tstamp/>
-    	<mkdir dir="${buildDir}"/>
-    	<concat destfile="${buildDir}/${scriptName}">
-			<fileset file="${srcDir}/xml3d_exporter.py"/>
-    		<fileset file="${srcDir}/xml3d.py"/>
-		</concat>        
-    	<replaceregexp file="${buildDir}/${scriptName}"
-    	               match="from xml3d import XML3DDocument"
-    	               replace="" byline="true"/>
-    	<replaceregexp file="${buildDir}/${scriptName}"
-    	               match="DEV_VERSION"
-    	               replace="${version} (${DSTAMP})" byline="true"/>
-    	
-    </target>
-	
+	<target name="default" depends="clean">
+		<tstamp />
+		<mkdir dir="${buildDir}/xml3d_blender" />
+		<concat destfile="${buildDir}/xml3d_blender/${scriptName}">
+			<fileset file="${srcDir}/xml3d_exporter.py" />
+			<fileset file="${srcDir}/xml3d.py" />
+		</concat>
+		<copy todir="${buildDir}/xml3d_blender" file="README.txt" />
+		<replaceregexp file="${buildDir}/xml3d_blender/${scriptName}" match="from xml3d import XML3DDocument" replace="" byline="true">
+		</replaceregexp>
+		<replaceregexp match="DEV_VERSION" replace="${version} (${DSTAMP})" byline="true">
+			<fileset file="${buildDir}/xml3d_blender/${scriptName}">
+			</fileset>
+			<fileset file="${buildDir}/xml3d_blender/README.txt">
+			</fileset>
+		</replaceregexp>
+
+		<zip destfile="${buildDir}/${archive.name}_${version}.zip" basedir="${buildDir}/">
+		</zip>
+
+	</target>
+
 	<target name="clean">
-		<delete dir="${buildDir}"></delete>
+		<delete dir="${buildDir}">
+		</delete>
 	</target>
 
 
