@@ -1,5 +1,5 @@
 try:
-	from xml.dom.minidom import Document, Element
+	from xml.dom.minidom import Document, Element, Childless, Text, _write_data
 except:
 	print "\nError! Could not find XML modules!"
 
